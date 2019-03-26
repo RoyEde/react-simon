@@ -14,23 +14,23 @@ const SwitchContainer = styled.div`
   display: flex;
 `;
 
-const SwitchButton = styled.button.attrs(({ size }) => ({
-  size: size || 0.8
-}))`
+const SwitchButton = styled.button.attrs({
+  size: 0.8
+})`
   ${({ active }) => active && switchMixin}
   background-color: blue;
-  border: ${({ size }) => `${size / 10}rem`} solid #222;
+  border: ${({ size }) => `${size / 4}rem`} solid #222;
   border-radius: ${({ size }) => `${size / 4}rem`};
   cursor: pointer;
   height: ${({ size }) => `${size}rem`};
-  outline: none;
+  outline-color: white;
   transition: transform 0.3s ease-in;
   width: ${({ size }) => `${size}rem`};
 `;
 
-const SwitchButtonContainer = styled(SwitchContainer).attrs(({ size }) => ({
-  size: size || 0.8
-}))`
+const SwitchButtonContainer = styled(SwitchContainer).attrs({
+  size: 0.8
+})`
   align-items: center;
   background-color: #222;
   margin: 0.2rem;

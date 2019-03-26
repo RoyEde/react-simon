@@ -4,26 +4,25 @@ const roundElementMixin = css`
   background-color: ${({ color }) => color};
   border-radius: 100%;
   height: ${({ size }) => `${size}rem`};
-  outline: none;
   width: ${({ size }) => `${size}rem`};
 `;
 
-const Light = styled.span.attrs(({ color, on, size }) => ({
+const Light = styled.span.attrs(({ color, on }) => ({
   children: null,
   color: on ? color || 'red' : '#430701',
-  size: size || 0.55
+  size: 0.55
 }))`
   ${roundElementMixin}
   border: 0.125rem solid #222;
   margin-bottom: 0.25rem;
-  transition: all ease 0.2s;
+  transition: background ease 0.2s;
   transition-delay: 0.1s;
 `;
 
-const RoundButtonElement = styled.button.attrs(({ color, size }) => ({
+const RoundButtonElement = styled.button.attrs(({ color }) => ({
   children: null,
   color: color || 'red',
-  size: size || 1.6
+  size: 1.6
 }))`
   ${roundElementMixin}
   border: 0.03125rem solid #44444488;
@@ -32,11 +31,11 @@ const RoundButtonElement = styled.button.attrs(({ color, size }) => ({
   cursor: pointer;
   position: relative;
   top: 0;
-  transition: all ease 0.1s;
+  transition: border ease 0.2s, box-shadow ease 0.2s, top ease 0.2s;
   &:active {
     border-bottom-width: 0.03125rem;
     box-shadow: inset 0 0 0.125rem 0 #333;
-    top: 0.0625rem;
+    top: 0.03625rem;
   }
 `;
 

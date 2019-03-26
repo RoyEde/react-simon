@@ -13,17 +13,19 @@ const flashCounter = keyframes`
 `;
 
 const flashMixin = css`
-  animation: ${flashCounter} 0.7s linear;
+  animation: ${flashCounter} 1.2s linear;
 `;
 
 const Count = styled.h2`
   ${({ flash }) => flash && flashMixin};
+  align-items: center;
   background-color: #32050c;
   border: 0.25rem solid #222;
   border-radius: 0.625rem;
   color: ${({ gameOn }) => (gameOn ? '#dc0d29' : '#430701')};
+  display: flex;
   font-family: 'VT323', monospace;
-  min-height: 1.25rem;
+  justify-content: center;
   margin: auto;
   text-align: center;
   transition: color 0.2s;

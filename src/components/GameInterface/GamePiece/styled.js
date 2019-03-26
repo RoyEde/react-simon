@@ -1,17 +1,23 @@
-import styled from 'styled-components';
-import {
-  MAP_BORDER_WIDTH,
-  MAP_GRID_POSITION,
-  MAP_ORIENTATION
-} from '../constants';
+import styled, { css } from 'styled-components';
 
-const GamePieceElement = styled.div`
-  background-color: ${({ color }) => color};
+const pointerMixin = css`
+  cursor: pointer;
+`;
+
+const outlineMixin = css`
+  outline: none;
+`;
+
+const GamePieceElement = styled.button`
+  ${({ started }) => !started && outlineMixin}
+  ${({ started }) => !started && pointerMixin}
+  background-color: ${({ active, color, highlightColor }) => active ? highlightColor : color};
   border-color: #333;
   border-style: solid;
-  border-width: ${({ index }) => MAP_BORDER_WIDTH[index]};
-  border-radius: ${({ index }) => MAP_ORIENTATION[index]};
-  grid-area: ${({ index }) => MAP_GRID_POSITION[index]};
+  border-width: ${({ borderWidth }) => borderWidth};
+  border-radius: ${({ orientation }) => orientation};
+  grid-area: ${({ position }) => position};
+  transition: background ease .6s;
 `;
 
 export default { GamePieceElement };

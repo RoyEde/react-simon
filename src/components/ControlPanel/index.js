@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { GameContext } from '../Game';
 
@@ -10,14 +10,37 @@ import styled from './styled';
 const ControlPanel = () => {
   const {
     gameOn,
-    resetAnimation,
+    gameStart,
+    gameTurn,
+    reset,
     strict,
-    toggleGameOn,
     toggleGameStart,
+    toggleGameOn,
     toggleStrict,
-    triggerAnimation
+    won
   } = useContext(GameContext);
   const { Container, RowContainer, Sup, Title } = styled;
+
+  const [count, setCount] = useState(0);
+  const [animation, setAnimation] = useState(false);
+
+  useEffect(() => {
+    if (gameOn) {
+      const timeout = setTimeout(() => {
+        if (gameTurn) {
+          setCount(gameTurn < 10 ? `0${gameTurn}` : `${gameTurn}`);
+        } else {
+          setCount('');
+        }
+        setTimeout(() => setAnimation(false), 600);
+      }, 600);
+      setAnimation(true);
+      return () => clearTimeout(timeout);
+    } else {
+      setCount('');
+    }
+  }, [gameTurn]);
+
   return (
     <Container>
       <Title>
@@ -25,11 +48,11 @@ const ControlPanel = () => {
         <Sup>®</Sup>
       </Title>
       <RowContainer>
-        <Counter gameOn={gameOn} triggerAnimation={triggerAnimation} />
+        <Counter count={count} gameOn={gameOn} triggerAnimation={animation || won} />
         <RoundButton
-          disable={!gameOn}
+          disable={!gameOn || animation}
           label="START"
-          onClick={triggerAnimation ? resetAnimation : toggleGameStart}
+          onClick={gameStart ? reset : toggleGameStart}
         />
         <RoundButton
           color="yellow"

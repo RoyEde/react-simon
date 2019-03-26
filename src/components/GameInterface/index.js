@@ -1,16 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
 // import PropTypes from 'prop-types';
 import ControlPanel from '../ControlPanel';
 import GamePiece from './GamePiece';
 import styled from './styled';
 import { GAME_PIECES } from './constants';
+import { GameContext } from '../Game';
 
 const GameInterface = () => {
   const { Container } = styled;
 
-  const renderPiece = ({ color }, index) => (
-    <GamePiece color={color} key={color} index={index} />
-  );
+  const { gameStart, play } = useContext(GameContext);
+
+  const renderPiece = (piece, index) => {
+    const onClick = () => gameStart && play(index);
+    return (
+      <GamePiece
+        {...piece}
+        key={piece.color}
+        index={index}
+        onClick={onClick}
+        started={gameStart}
+      />
+    );
+  };
 
   return (
     <Container>
