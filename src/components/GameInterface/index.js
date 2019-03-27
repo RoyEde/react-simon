@@ -9,10 +9,10 @@ import { GameContext } from '../Game';
 const GameInterface = () => {
   const { Container } = styled;
 
-  const { gameStart, play } = useContext(GameContext);
+  const { gameStart, play, player } = useContext(GameContext);
 
   const renderPiece = (piece, index) => {
-    const onClick = () => gameStart && play(index);
+    const onClick = () => gameStart && player && play(index);
     return (
       <GamePiece
         {...piece}

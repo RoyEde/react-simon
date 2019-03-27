@@ -11,9 +11,8 @@ const Game = () => {
   const [gameStart, toggleGameStart] = useToggleHook(false);
   const [gameState, setGameState] = useState(null);
   const [gameTurn, setGameTurn] = useState(0);
-  const [playerTurn, setPlayerTurn] = useState(false);
-  // const [playerTurn, setPlayerTurn] = useToggleHook(false);
-  const [showTurn, setShowTurn] = useState(0);
+  const [player, togglePlayer] = useToggleHook(false);
+  const [playerTurn, setPlayerTurn] = useState(0);
   const [strict, toggleStrict] = useToggleHook(false);
 
   const startGame = () => {
@@ -24,32 +23,35 @@ const Game = () => {
   const stopGame = () => {
     setGameTurn(0);
     setPlayerTurn(0);
-    setShowTurn(0);
   };
 
-  const reset = () => {
+  const resetGame = () => {
     stopGame();
     setTimeout(startGame, 300);
   };
 
+  const resetPlayer = () => {
+    setPlayerTurn(0);
+    togglePlayer();
+  };
+
   const play = index => {
-    if (index === gameState[playerTurn]) {
-      setPlayerTurn(playerTurn + 1);
-    } else if (strict) {
-      reset();
-    } else {
-      setPlayerTurn(0);
-      setShowTurn(0);
-    }
+    if (index === gameState[playerTurn]) setPlayerTurn(playerTurn + 1);
+    else if (strict) resetGame();
+    else resetPlayer();
   };
 
   useEffect(() => {
-    if (playerTurn === gameTurn) {
-      setGameTurn(gameTurn + 1);
-      setPlayerTurn(0);
-      setShowTurn(0);
+    if (gameOn) {
+      if (playerTurn === gameTurn) {
+        if (player) setGameTurn(gameTurn + 1);
+        resetPlayer();
+      }
+      if (playerTurn < gameTurn && !player) {
+        setTimeout(() => setPlayerTurn(playerTurn + 1), 1000);
+      }
     }
-  }, [playerTurn]);
+  }, [gameTurn, player, playerTurn]);
 
   useEffect(() => {
     if (!gameOn) {
@@ -57,37 +59,23 @@ const Game = () => {
         toggleGameStart();
         stopGame();
       }
-      if (strict) {
-        toggleStrict();
-      }
+      if (player) togglePlayer();
+      if (strict) toggleStrict();
     }
   }, [gameOn]);
 
   useEffect(() => {
-    if (gameStart) {
-      console.log('start');
-      startGame();
-    }
+    if (gameStart) startGame();
   }, [gameStart]);
-
-  useEffect(() => {
-    if (gameOn) {
-      if (showTurn < gameTurn) {
-        setTimeout(() => setShowTurn(showTurn + 1), 1000);
-      }
-    }
-  }, [gameTurn, showTurn]);
 
   const state = {
     gameOn,
-    gameStart,
     gameState,
+    gameStart,
     gameTurn,
     play,
+    player,
     playerTurn,
-    reset,
-    showTurn,
-    startGame,
     strict,
     toggleGameOn,
     toggleGameStart,

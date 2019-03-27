@@ -6,19 +6,19 @@ import { GameContext } from '../../Game';
 const GamePiece = ({ index, sound, ...props }) => {
   const { GamePieceElement } = styled;
 
-  const { gameStart, gameState, playerTurn, showTurn } = useContext(GameContext);
+  const { gameStart, gameState, playerTurn } = useContext(GameContext);
 
   const soundRef = useRef(null);
 
   const [active, setActive] = useState(false);
 
   useEffect(() => {
-    if (gameStart && gameState && (playerTurn && gameState[playerTurn - 1] === index || !playerTurn && gameState[showTurn - 1] === index)) {
+    if (gameStart && gameState && (playerTurn && gameState[playerTurn - 1] === index)) {
       soundRef.current.play();
       setActive(true);
       setTimeout(() => setActive(false), 300);
     }
-  }, [playerTurn, showTurn]);
+  }, [playerTurn]);
 
   return (
     <>

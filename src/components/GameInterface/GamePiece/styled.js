@@ -10,7 +10,7 @@ const outlineMixin = css`
 
 const GamePieceElement = styled.button`
   ${({ started }) => !started && outlineMixin}
-  ${({ started }) => !started && pointerMixin}
+  ${({ started }) => started && pointerMixin}
   background-color: ${({ active, color, highlightColor }) => active ? highlightColor : color};
   border-color: #333;
   border-style: solid;
