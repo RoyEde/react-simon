@@ -8,9 +8,10 @@
     "dev": "webpack-dev-server --open",
     "format": "prettier --write \"src/**/*.js\"",
     "lint": "eslint \"src/**/*.js\"",
-    "build": "webpack--mode production"
+    "build": "webpack --mode=production"
   },
   "dependencies": {
+    "prop-types": "^15.7.2",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "styled-components": "^4.1.3"

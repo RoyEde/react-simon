@@ -1,6 +1,7 @@
 import React from 'react';
+import { bool, func, string } from 'prop-types';
+
 import styled from './styled';
-// import PropTypes from 'prop-types';
 
 const Switch = ({ active, leftLabel, onToggle, rightLabel }) => {
   const {
@@ -20,6 +21,11 @@ const Switch = ({ active, leftLabel, onToggle, rightLabel }) => {
   );
 };
 
-Switch.propTypes = {};
+Switch.propTypes = {
+  active: bool.isRequired,
+  leftLabel: string.isRequired,
+  onToggle: func.isRequired,
+  rightLabel: string.isRequired
+};
 
 export default Switch;

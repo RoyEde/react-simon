@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import { bool, func, string } from 'prop-types';
 
 import Container from '../Container';
 import Label from '../Label';
@@ -25,6 +25,14 @@ const RoundButton = ({
   );
 };
 
-RoundButton.propTypes = {};
+RoundButton.propTypes = {
+  color: string,
+  condition: bool,
+  disable: bool.isRequired,
+  label: string.isRequired,
+  light: bool,
+  lightColor: string,
+  onClick: func.isRequired
+};
 
 export default RoundButton;

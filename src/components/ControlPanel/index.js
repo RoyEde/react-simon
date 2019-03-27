@@ -1,27 +1,27 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { bool } from 'prop-types';
 
-import { GameContext } from '../Game';
+import { gamePropTypes } from '../Game/propTypes';
 
 import Counter from './components/Counter';
 import RoundButton from './components/RoundButton';
 import Switch from './components/Switch';
 import styled from './styled';
 
-const ControlPanel = () => {
-  const {
-    gameOn,
-    gameStart,
-    gameTurn,
-    reset,
-    strict,
-    toggleGameStart,
-    toggleGameOn,
-    toggleStrict,
-    won
-  } = useContext(GameContext);
+const ControlPanel = ({
+  gameOn,
+  gameStart,
+  gameTurn,
+  resetGame,
+  strict,
+  toggleGameOn,
+  toggleGameStart,
+  toggleStrict,
+  won // TODO ADD THIS
+}) => {
   const { Container, RowContainer, Sup, Title } = styled;
 
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState('');
   const [animation, setAnimation] = useState(false);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const ControlPanel = () => {
         <RoundButton
           disable={!gameOn || animation}
           label="START"
-          onClick={gameStart ? reset : toggleGameStart}
+          onClick={gameStart ? resetGame : toggleGameStart}
         />
         <RoundButton
           color="yellow"
@@ -71,6 +71,18 @@ const ControlPanel = () => {
       />
     </Container>
   );
+};
+
+ControlPanel.propTypes = {
+  gameOn: gamePropTypes.gameOn,
+  gameStart: gamePropTypes.gameStart,
+  gameTurn: gamePropTypes.gameTurn,
+  resetGame: gamePropTypes.resetGame,
+  strict: gamePropTypes.strict,
+  toggleGameOn: gamePropTypes.toggleGameOn,
+  toggleGameStart: gamePropTypes.toggleGameStart,
+  toggleStrict: gamePropTypes.toggleStrict,
+  won: bool
 };
 
 export default ControlPanel;

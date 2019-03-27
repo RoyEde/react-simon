@@ -1,37 +1,43 @@
 import React, { useContext } from 'react';
-// import PropTypes from 'prop-types';
-import ControlPanel from '../ControlPanel';
-import GamePiece from './GamePiece';
-import styled from './styled';
-import { GAME_PIECES } from './constants';
+
 import { GameContext } from '../Game';
 
-const GameInterface = () => {
-  const { Container } = styled;
+import GameInterface from './layout';
 
-  const { gameStart, play, player } = useContext(GameContext);
+const GameInterfaceContainer = () => {
+  const {
+    gameOn,
+    gameStart,
+    gameState,
+    gameTurn,
+    play,
+    player,
+    playerTurn,
+    resetGame,
+    strict,
+    toggleGameOn,
+    toggleGameStart,
+    toggleStrict,
+    won
+  } = useContext(GameContext);
 
-  const renderPiece = (piece, index) => {
-    const onClick = () => gameStart && player && play(index);
-    return (
-      <GamePiece
-        {...piece}
-        key={piece.color}
-        index={index}
-        onClick={onClick}
-        started={gameStart}
-      />
-    );
+  const props = {
+    gameOn,
+    gameStart,
+    gameState,
+    gameTurn,
+    play,
+    player,
+    playerTurn,
+    resetGame,
+    strict,
+    toggleGameOn,
+    toggleGameStart,
+    toggleStrict,
+    won
   };
 
-  return (
-    <Container>
-      {GAME_PIECES.map(renderPiece)}
-      <ControlPanel />
-    </Container>
-  );
+  return <GameInterface {...props} />;
 };
 
-GameInterface.propTypes = {};
-
-export default GameInterface;
+export default GameInterfaceContainer;

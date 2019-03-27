@@ -9,7 +9,7 @@ export const GameContext = createContext();
 const Game = () => {
   const [gameOn, toggleGameOn] = useToggleHook(false);
   const [gameStart, toggleGameStart] = useToggleHook(false);
-  const [gameState, setGameState] = useState(null);
+  const [gameState, setGameState] = useState([]);
   const [gameTurn, setGameTurn] = useState(0);
   const [player, togglePlayer] = useToggleHook(false);
   const [playerTurn, setPlayerTurn] = useState(0);
@@ -48,7 +48,8 @@ const Game = () => {
         resetPlayer();
       }
       if (playerTurn < gameTurn && !player) {
-        setTimeout(() => setPlayerTurn(playerTurn + 1), 1000);
+        const playTimer = setTimeout(() => setPlayerTurn(playerTurn + 1), 1000);
+        return () => clearTimeout(playTimer);
       }
     }
   }, [gameTurn, player, playerTurn]);
@@ -59,6 +60,7 @@ const Game = () => {
         toggleGameStart();
         stopGame();
       }
+      if (gameState) setGameState([]);
       if (player) togglePlayer();
       if (strict) toggleStrict();
     }
@@ -76,6 +78,7 @@ const Game = () => {
     play,
     player,
     playerTurn,
+    resetGame,
     strict,
     toggleGameOn,
     toggleGameStart,
