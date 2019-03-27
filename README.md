@@ -9,4 +9,6 @@ Based on https://learn.freecodecamp.org/coding-interview-prep/take-home-projects
 
 * Styled Components :nail_care:
 
-#### *Status: This is just a template, the game's mechanics haven't been implemented yet.
+#### *Status:
+  * ~This is just a template, the game's mechanics haven't been implemented yet.~
+  * Game mechanics have been implemented :smile: :computer:
