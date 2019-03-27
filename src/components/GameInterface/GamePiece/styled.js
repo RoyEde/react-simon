@@ -4,12 +4,7 @@ const pointerMixin = css`
   cursor: pointer;
 `;
 
-const outlineMixin = css`
-  outline: none;
-`;
-
 const GamePieceElement = styled.button`
-  ${({ started }) => !started && outlineMixin}
   ${({ started }) => started && pointerMixin}
   background-color: ${({ active, color, highlightColor }) => active ? highlightColor : color};
   border-color: #333;
@@ -17,6 +12,7 @@ const GamePieceElement = styled.button`
   border-width: ${({ borderWidth }) => borderWidth};
   border-radius: ${({ orientation }) => orientation};
   grid-area: ${({ position }) => position};
+  outline: none;
   transition: background ease .6s;
 `;
 
